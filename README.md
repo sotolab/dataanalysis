@@ -12,6 +12,10 @@ dataanalysis
     word_tensor.tsv
     word_metadata.tsv
     
-    1단의 단어 선택
+    bounding box selection
+    전체 선택
+    오른쪽 최상단 단어 선택
+    neighbors (내가 보고 싶은 단어개 정함(55개정도)
+    lsolate 55 points 선택
     
 
