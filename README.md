@@ -2,6 +2,9 @@
 dataanalysis
 
     $ python allhashtag.py
+    
+    엑셀파일에서 txt 파일로 저장
+    
     $ python  pcavec.py
     $ python pcahtml.py
     $ python createTS.py
