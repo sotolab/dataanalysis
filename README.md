@@ -1,6 +1,7 @@
 # dataanalysis
 dataanalysis
 
+    $ python allhashtag.py
     $ python  pcavec.py
     $ python pcahtml.py
     $ python createTS.py
