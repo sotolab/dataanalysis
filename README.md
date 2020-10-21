@@ -1,6 +1,8 @@
 # dataanalysis
 dataanalysis
 
+https://joyhong.tistory.com/134?category=915140
+
     $ python allhashtag.py
     
     엑셀파일에서 txt 파일로 저장
