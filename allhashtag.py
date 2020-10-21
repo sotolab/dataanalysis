@@ -70,37 +70,9 @@ if __name__ == "__main__":
 
     wb = openpyxl.Workbook()
     sheet = wb.active
-    # 진주, 거창x, 창원x
-
-    #1 인천(168),
-    #  평택(368)
-    #2 부산(491),
-    #3 김해(579),
-    #4 안동(593),
-    #5 대구(616),
-    #6 제천(709),
-    #7 대전(719)
-    #8 울산(757),
-    #9 제주(949),
-    #10 군산(1137),
-    #11 삼척(1146)
-    #12 양산(1197)
-    #13 수원(1198)
-    #14 천안(1391),
-    #15 금산(1945),
-    #16 여수(4218)
-    #17 진주(6302)
-    #18 전주(10998)
-
-
-    name = "천안청년몰"  #input("검색어를 입력하세요 : " )
+    
+    name = "축구"  #input("검색어를 입력하세요 : " )
     print('### 검색어 ', name)
-
-    # sheet = wb.create_sheet(name)
-    # csvtext = [['erna_limdaugh', 'photozone', '청년몰', 'arirangtv', '전주여행', 'handmadestores', 'rangmate', 'touristspot']]
-    # value = ",".join(csvtext[0])
-    # print("value: " , value)
-    #
 
     if (MAC):
         # driver load
@@ -118,7 +90,6 @@ if __name__ == "__main__":
 
     # 사전 정보 정의
 
-
     #login
     login_id = driver.find_element_by_name('username')
     login_id.send_keys(username)
@@ -133,47 +104,24 @@ if __name__ == "__main__":
     popup = driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]')
     popup.send_keys(Keys.ENTER)
 
-
-    scrolltime = 1.5 #float(input("크롤링 속도를 입력하세요 : "))
-    # crawlnum = int(input("가져올 데이터의 수를 입력하세요 : " ))
-
-
-    # sheet = wb.create_sheet(name)
-
+    scrolltime = 1.5 
 
     search = urllib.parse.quote(name)
     url = 'https://www.instagram.com/explore/tags/'+str(search)+'/'
     # driver = webdriver.Chrome('chromedriver.exe')
 
-
-
-
     driver.get(url)
     sleep(5)
-
 
     now = datetime.datetime.now()
     SCROLL_PAUSE_TIME = 2.0
 
     reallink = []
-
     getList()
 
     reallink = np.load('link'+name+'.npy')
-
-    # abc = np.load('link'+name+'.npy')
-    # reallink = abc[1001:]
-
     hashtags2 = []
     totalLikes = 0
-
-    # ilinks = ",".join(reallink)
-    # print("ilinks: " , ilinks)
-    # sheet.append([ilinks])
-    # sheet.append([reallink])
-    #
-
-    # wb.save("link"+name + nowDatetime + ".xlsx")
 
     reallinknum = len(reallink)
     print("총"+str(reallinknum)+"개의 데이터.")
@@ -235,69 +183,9 @@ if __name__ == "__main__":
                     # print("저장성공: %s", insert_data)
                     sheet.append([hashtags])
 
-                # soup2 = soup1.split(',')
-                # soup2num = len(soup2)
-                # csvtext = []
-                # # csvtext.append(str(i+1))
-                # for j in range(0,soup2num):
-                #     hashtags = soup2[j].split('#')[1].split('</a>')[0]
-                #     # print("hashtags: ", hashtags)
-                #     csvtext.append(hashtags)
-                #
-                # value = ",".join(csvtext)
-                # print("value: " , value)
-                # sheet.append([value])
-
-                # time.sleep(2)
-
     except Exception as error:
         print("오류발생: " + str(error))
         print(traceback.format_exc())
-
-
-    # try:
-    #     for i in range(0,reallinknum):
-    #         csvtext.append([])
-    #         req = Request('https://www.instagram.com/p'+reallink[i],headers={'User-Agent': 'Mozilla/5.0'})
-    #
-    #         webpage = urlopen(req).read()
-    #         soup = BeautifulSoup(webpage,"lxml",from_encoding='utf-8')
-    #         soup1 = soup.find("meta",attrs={"property":"og:description"})
-    #
-    #         csvtext[i].append(str(i+1))
-    #         reallink1 = soup1['content']
-    #         reallink1 = reallink1[reallink1.find("@")+1:reallink1.find(")")]
-    #         reallink1 = reallink1[:20]
-    #         if reallink1 == '':
-    #             reallink1 = 'Null'
-    #
-    #         csvtext[i].append(reallink1)
-    #         # sheet.append([reallink1])
-    #
-    #         for reallink2 in soup.find_all("meta",attrs={"property":"instapp:hashtags"}):
-    #             reallink2 = reallink2['content']
-    #             csvtext[i].append(reallink2)
-    #             # sheet.append([reallink2])
-    #
-    #
-    #         print(str(i+1)+"개의 데이터 받아오는 중.")
-    #         # csvtext = [['erna_limdaugh', 'photozone', '청년몰', 'arirangtv', '전주여행', 'handmadestores', 'rangmate', 'touristspot']]
-    #         value = ",".join(csvtext[i])
-    #         print("value: " , value)
-    #         sheet.append([value])
-    #
-    #         # present_date = str(datetime.utcnow() + timedelta(hours=9))[:10] #파일명에 날짜구분하기 위한 시간
-    #
-    #         # nowDatetime = now.strftime('%Y-%m-%d-%H-%M-%S')
-    #         # data.to_csv(name + nowDatetime + ".csv", encoding='utf-8')
-    #
-    # except Exception as error:
-    #     print("오류발생: " + str(error))
-
-    # except:
-    #     print("오류발생"+str(i+1)+"개의 데이터를 저장합니다.")
-
-    # data = pd.DataFrame(csvtext)
 
     nowDatetime = now.strftime('%Y-%m-%d-%H-%M-%S')
     wb.save(name + nowDatetime + ".xlsx")
